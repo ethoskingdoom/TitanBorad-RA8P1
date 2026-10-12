@@ -1,0 +1,23 @@
+import os
+from building import *
+
+objs = []
+cwd  = GetCurrentDir()
+proj_root = os.path.abspath(os.path.join(cwd, '..', '..'))
+CPPPATH = [
+    cwd,
+    os.path.join(proj_root, 'ra', 'arm', 'CMSIS_6', 'CMSIS', 'Core', 'Include'),
+    os.path.join(proj_root, 'ra', 'npu', 'ethos-u-core-driver', 'include'),
+]
+
+src = [
+    'model_net1.c',
+    'sub_0000_net1_command_stream.c',
+    'sub_0000_net1_invoke.c',
+    'sub_0000_net1_model_data.c',
+    'sub_0000_net1_tensors.c',
+]
+
+objs = DefineGroup('Models', src, depend = [], CPPPATH = CPPPATH)
+
+Return('objs')
